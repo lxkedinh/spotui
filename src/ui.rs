@@ -1,7 +1,7 @@
 use derive_setters::Setters;
 use ratatui::{
     buffer::Buffer,
-    layout::{Alignment, Rect},
+    layout::{Alignment, Constraint, Rect},
     style::{Color, Style, Stylize},
     text::{Line, Text},
     widgets::{Block, BorderType, Borders, Clear, Paragraph, Widget, Wrap},
@@ -64,12 +64,7 @@ impl Widget for &App {
         paragraph.render(area, buf);
 
         if self.show_controls {
-            let popup_area = Rect {
-                x: area.width / 4,
-                y: area.height / 3,
-                width: area.width / 2,
-                height: area.height / 2,
-            };
+            let popup_area = area.centered(Constraint::Percentage(50), Constraint::Percentage(50));
 
             let popup = Popup::default()
                 .content("test")
